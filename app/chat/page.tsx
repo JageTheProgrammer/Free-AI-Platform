@@ -467,7 +467,7 @@ export default function ChatPage() {
               placeholder="Message Free AI..."
               rows={1}
               disabled={isLoading}
-              className="flex-1 resize-none bg-transparent px-4 py-2 text-sm leading-6 text-slate-900 placeholder:text-slate-400 outline-none disabled:opacity-50"
+              className="flex-1 resize-none bg-transparent px-4 py-2 text-base leading-6 text-slate-900 placeholder:text-slate-400 outline-none disabled:opacity-50"
             />
             <button
               onClick={handleSend}
@@ -510,7 +510,7 @@ export default function ChatPage() {
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder="gsk_..."
-              className="mt-4 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm font-mono outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+              className="mt-4 w-full rounded-xl border border-slate-200 px-4 py-3 text-base font-mono outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
               onKeyDown={(e) => e.key === "Enter" && saveApiKey()}
             />
             <div className="mt-4 flex items-center justify-between gap-3">

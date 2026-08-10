@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -44,7 +43,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`flex top-0 z-50 w-full transition-shadow duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-shadow duration-300 ${
         scrolled
           ? "border-b border-slate-200/60 bg-white/80 shadow-[0_1px_12px_rgba(148,163,184,0.1)] backdrop-blur-md"
           : "border-b border-slate-100 bg-white"
@@ -137,115 +136,62 @@ export default function Navbar() {
   );
 }
 
-
 function MobileMenu() {
   const { lang, setLang, t } = useLang();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    if (open) {
-      setMounted(true);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-      const timeout = setTimeout(() => setMounted(false), 200);
-      return () => clearTimeout(timeout);
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
 
   return (
     <div className="md:hidden">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="relative z-50 rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700"
+        className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700"
         aria-label="Toggle menu"
-        aria-expanded={open}
       >
         <svg className="h-[22px] w-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           {open ? (
             <path d="M18 6L6 18M6 6l12 12" />
           ) : (
-            <path d="M4 6h16M4 12h16M4 18h16" />
+            <>
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </>
           )}
         </svg>
       </button>
 
-      {mounted && (
-        <>
-          {/* Backdrop */}
-          <div
-            onClick={() => setOpen(false)}
-            className={`fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[2px] transition-opacity duration-200 ${
-              open ? "opacity-100" : "opacity-0"
-            }`}
-          />
-
-          {/* Panel */}
-          <div
-            className={`fixed right-3 top-[68px] z-50 w-[calc(100vw-1.5rem)] max-w-sm origin-top-right rounded-2xl border border-slate-200/70 bg-white p-2 shadow-2xl shadow-slate-300/40 transition-all duration-200 ease-out ${
-              open
-                ? "translate-y-0 scale-100 opacity-100"
-                : "-translate-y-2 scale-95 opacity-0"
-            }`}
-          >
-            <div className="flex flex-col gap-1 p-2">
-              {links.map((link, i) => (
-                <Link
-                  key={link.key}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="group flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-medium text-slate-700 transition-colors hover:bg-slate-50 hover:text-slate-900 active:bg-slate-100"
-                  style={{ transitionDelay: open ? `${i * 30}ms` : "0ms" }}
+      {open && (
+        <div className="absolute right-4 top-[64px] z-50 w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-200/60 backdrop-blur-md">
+          <div className="flex flex-col gap-0.5">
+            {links.map((link) => (
+              <Link
+                key={link.key}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-4 py-3 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900"
+              >
+                {t(link.key)}
+              </Link>
+            ))}
+            <div className="my-2 border-t border-slate-100" />
+            <Link href="/chat" className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-gray-100 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20">
+              {t("nav.chat")}
+            </Link>
+            <div className="mt-3 flex gap-2">
+              {langs.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => setLang(l.code)}
+                  className={`flex-1 rounded-lg border px-3 py-2 text-center text-xs font-semibold transition-colors ${
+                    lang === l.code
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50"
+                  }`}
                 >
-                  <span>{t(link.key)}</span>
-                  <svg
-                    className="h-4 w-4 text-slate-300 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-slate-400 group-hover:opacity-100"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M9 6l6 6-6 6" />
-                  </svg>
-                </Link>
+                  {l.label}
+                </button>
               ))}
             </div>
-
-            <div className="mx-2 my-1 border-t border-slate-100" />
-
-            <div className="p-2 pt-3">
-              <Link
-                href="/chat"
-                onClick={() => setOpen(false)}
-                className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98]"
-              >
-                {t("nav.chat")}
-              </Link>
-
-              <div className="mt-3 flex gap-2">
-                {langs.map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => setLang(l.code)}
-                    className={`flex-1 rounded-lg border px-3 py-2 text-center text-xs font-semibold transition-colors ${
-                      lang === l.code
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
-                        : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50"
-                    }`}
-                  >
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
