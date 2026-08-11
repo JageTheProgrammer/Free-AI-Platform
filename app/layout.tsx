@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import ClientLayout from "@/components/ClientLayout";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,18 +32,22 @@ export const metadata: Metadata = {
     "chatbot",
     "language model",
     "machine learning",
+    "Jaakko Maatiala",
+    "Maatiala",
+    "AI for everyone",
+    "AI for free",
   ],
-  authors: [{ name: "Free AI Contributors" }],
-  creator: "Free AI",
-  publisher: "Free AI",
+  authors: [{ name: "Free AI Contributors - Jaakko Maatiala" }],
+  creator: "Jaakko Maatiala",
+  publisher: "Jaakko Maatiala",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://freeai.example.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://ai.maatiala.dev"
   ),
   alternates: {
     canonical: "/",
     languages: {
-      en: "/en",
-      fi: "/fi",
+      en: "/",
+      fi: "/",
     },
   },
   openGraph: {

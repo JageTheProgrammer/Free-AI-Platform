@@ -70,7 +70,7 @@ export default function Navbar() {
             <Link
               key={link.key}
               href={link.href}
-              className="relative rounded-lg px-3.5 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 after:absolute after:bottom-1.5 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-gradient-to-r after:from-blue-500 after:to-violet-500 after:transition-all hover:after:w-1/2 after:absolute dark:text-slate-500 dark:hover:text-slate-300"
+              className="relative rounded-lg px-3.5 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-blue-600 after:absolute after:bottom-1.5 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-gradient-to-r after:from-blue-500 after:to-violet-500 after:transition-all hover:after:w-1/2 after:absolute dark:text-slate-500 dark:hover:text-blue-600"
             >
               {t(link.key)}
             </Link>

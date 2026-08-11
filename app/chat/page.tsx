@@ -35,20 +35,10 @@ export default function ChatPage() {
     }
   }, [input]);
 
-  // Load API key from localStorage (auto-expire after 30 days)
+  // Load API key from localStorage
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("groq_api_key");
-      const ts = parseInt(localStorage.getItem("groq_api_key_ts") || "0", 10);
-      const EXPIRY_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-      if (stored && Date.now() - ts < EXPIRY_MS) {
-        setApiKey(stored);
-      } else if (stored) {
-        // Expired — remove old key
-        localStorage.removeItem("groq_api_key");
-        localStorage.removeItem("groq_api_key_ts");
-      }
-    }
+    const stored = typeof window !== "undefined" && localStorage.getItem("groq_api_key");
+    if (stored) setApiKey(stored);
   }, []);
 
   const handleSend = async () => {
@@ -188,7 +178,6 @@ export default function ChatPage() {
   const saveApiKey = () => {
     if (apiKey.trim()) {
       localStorage.setItem("groq_api_key", apiKey.trim());
-      localStorage.setItem("groq_api_key_ts", Date.now().toString());
       setShowApiInput(false);
     }
   };
