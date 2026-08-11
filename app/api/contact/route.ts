@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import ratelimit from "@/lib/ratelimit";
+import ratelimit, { getContactLimiter } from "@/lib/ratelimit";
 import nodemailer from "nodemailer";
+
+interface ContactBody {
+  name: unknown;
+  email: unknown;
+  message: unknown;
+  honeypot?: unknown;
+}
 
 // Strip carriage returns and newlines to prevent SMTP header injection
 function sanitizeCRLF(input: string): string {
@@ -31,24 +38,25 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-
 
 export async function POST(req: NextRequest) {
   // Rate limiting — 10 requests per minute per IP
-  const ip = req.ip || req.headers.get("x-forwarded-for") || "unknown";
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
   const limiterKey = `contact_${ip}`;
-  const { success } = await ratelimit.limit(limiterKey);
+  const contactLimiter = getContactLimiter();
+  const { success } = await contactLimiter.limit(limiterKey);
   if (!success) {
     return NextResponse.json({ error: "Rate limit exceeded. Please try again later." }, { status: 429 });
   }
 
-  let body: unknown;
+  let body: ContactBody;
   try {
-    body = await req.json();
+    body = (await req.json()) as ContactBody;
   } catch {
     return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
   }
 
-  const name = typeof body?.name === "string" ? body.name : "";
-  const email = typeof body?.email === "string" ? body.email : "";
-  const message = typeof body?.message === "string" ? body.message : "";
-  const honeypot = typeof body?.honeypot === "string" ? body.honeypot : "";
+  const name = typeof body.name === "string" ? body.name : "";
+  const email = typeof body.email === "string" ? body.email : "";
+  const message = typeof body.message === "string" ? body.message : "";
+  const honeypot = typeof body.honeypot === "string" ? body.honeypot : "";
 
   // Reject honeypot (bot submission)
   if (honeypot) {

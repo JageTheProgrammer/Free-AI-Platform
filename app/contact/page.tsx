@@ -11,21 +11,37 @@ function ContactPage() {
   const { t } = useLang();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [honeypot, setHoneypot] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErrorMsg("");
+
+    // Client-side honeypot check — silently reject bots
+    if (honeypot) {
+      return;
+    }
+
     setStatus("sending");
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, honeypot }),
       });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data.error || t("contact.error") || "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+
       setStatus("sent");
       setFormData({ name: "", email: "", message: "" });
     } catch {
+      setErrorMsg(t("contact.error") || "Something went wrong. Please try again.");
       setStatus("error");
     }
   }
@@ -75,11 +91,23 @@ function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm backdrop-blur-sm sm:p-10">
-              {status === "error" && (
+              {errorMsg && (
                 <div className="mb-6 rounded-xl border border-red-200 bg-red-50/70 p-4 text-sm text-red-600">
-                  {t("contact.error") || "Something went wrong. Please try again."}
+                  {errorMsg}
                 </div>
               )}
+
+              {/* Hidden honeypot field — bots fill it, real users don't see it */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ position: "absolute", opacity: 0, height: 0, width: 0 }}
+                aria-hidden="true"
+              />
 
               <div className="mb-5">
                 <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-slate-700">
@@ -92,6 +120,7 @@ function ContactPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder={t("contact.form_name_placeholder") || "Your name"}
+                  maxLength={200}
                   className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
@@ -107,6 +136,7 @@ function ContactPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder={t("contact.form_email_placeholder") || "you@example.com"}
+                  maxLength={320}
                   className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
@@ -122,6 +152,7 @@ function ContactPage() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder={t("contact.form_message_placeholder") || "Write your message here..."}
+                  maxLength={5000}
                   className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
