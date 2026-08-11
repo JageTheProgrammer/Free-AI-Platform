@@ -83,6 +83,14 @@
     "cta_title": "Ready to Try Free AI?",
     "features_title": "Features",
     "features_subtitle": "Everything Free AI gives you, at a glance.",
+    "feature_1_title": "No Sign-Up",
+    "feature_1_desc": "Start chatting with AI instantly. No account creation, no email verification, no credit card required.",
+    "feature_2_title": "Your Key Stays in Your Browser",
+    "feature_2_desc": "Your Groq API key is stored only in your browser's local storage. It never leaves your device except when you send a request directly to Groq. We have no way to access your key or use it on your behalf.",
+    "feature_3_title": "Always Free",
+    "feature_3_desc": "Free AI is completely free to use. We have no plans to introduce paid tiers or limit access. You can use it as much as you want, for any purpose, without restriction.",
+    "feature_4_title": "Open Source",
+    "feature_4_desc": "Free AI is built on open-source software and is itself open-source under the MIT License. You can view the code, contribute, or fork it for your own projects.",
     "changelog_title": "Changelog",
     "changelog_subtitle": "A running log of what's new and improved.",
     "changelog_1_version": "v1.2.0",
@@ -185,5 +193,12 @@
     "contact_title": "Questions?",
     "contact_text": "If you have questions about this license, please see the ",
     "or_email_text": "page or email us at "
+  },
+  "not_found": {
+    "title": "Page Not Found",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "home_button": "Go Home",
+    "chat_button": "Try Chat",
+    "hint": "404 — The requested URL was not found on this server."
   }
 }

@@ -209,12 +209,12 @@ export default function Home() {
                 <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   {t("page.cta_title") || "Ready to get started?"}
                 </h2>
-                <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-gray-200">
+                <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-white">
                   {t("page.cta_description") || "Start using powerful AI tools right now. No account needed — it&apos;s completely free and instant."}
                 </p>
                 <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <a
-                    href="#features"
+                    href="/chat"
                     className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-blue-600 shadow-xl shadow-black/10 transition-all hover:shadow-2xl hover:brightness-95 active:scale-[0.98]"
                   >
                     {t("page.cta_start") || "Get started for free"}

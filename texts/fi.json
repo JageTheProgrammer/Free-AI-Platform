@@ -83,6 +83,14 @@
     "cta_title": "Valmis Kokeilemaan Free AI:ta?",
     "features_title": "Ominaisuudet",
     "features_subtitle": "Kaikki mitä Free AI tarjoaa, yhdellä silmäyksellä.",
+    "feature_1_title": "Ei Rekisteröitymistä",
+    "feature_1_desc": "Aloita keskustelu tekoälyn kanssa välittömästi. Ei tilin luomista, ei sähköpostin vahvistusta, ei luottokorttia.",
+    "feature_2_title": "Avaimesi Pysyy Selaimessasi",
+    "feature_2_desc": "Groq API-avaimesi tallennetaan vain selaimesi paikallistallennukseen. Se ei koskaan poistu laitteeltasi paitsi silloin, kun lähetät pyynnön suoraan Groqille. Meillä ei ole mitään keinoa käyttää avaintasi tai toimia sillä puolestasi.",
+    "feature_3_title": "Aina Ilmainen",
+    "feature_3_desc": "Free AI on täysin ilmainen käyttää. Meillä ei ole aikomusta ottaa käyttöön maksullisia tasoja tai rajoittaa pääsyä. Voit käyttää sitä niin paljon kuin haluat, mihin tahansa tarkoitukseen, ilman rajoituksia.",
+    "feature_4_title": "Avoin Lähdekoodi",
+    "feature_4_desc": "Free AI on rakennettu avoimen lähdekoodin ohjelmistoilla ja on itse avoimen lähdekoodin MIT-lisenssin alainen. Voit tarkastella koodia, osallistua tai haarukoida sen omiin projekteihisi.",
     "changelog_title": "Muutosloki",
     "changelog_subtitle": "Ajantasainen loki uusista ominaisuuksista ja parannuksista.",
     "changelog_1_version": "v1.2.0",
@@ -185,5 +193,12 @@
     "contact_title": "Kysyttävää?",
     "contact_text": "Jos sinulla on kysyttävää tästä lisenssistä, katso ",
     "or_email_text": "sivu tai lähetä sähköpostia osoitteeseen "
+  },
+  "not_found": {
+    "title": "Sivua Ei Löydy",
+    "subtitle": "Etsimääsi sivua ei ole olemassa, sitä on siirretty tai se on muuttunut.",
+    "home_button": "Etusivulle",
+    "chat_button": "Kokeile Keskustelua",
+    "hint": "404 — Pyydettyä URL-osoitetta ei löytynyt palvelimelta."
   }
 }

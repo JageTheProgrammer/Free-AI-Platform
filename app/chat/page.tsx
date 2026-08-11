@@ -322,24 +322,21 @@ export default function ChatPage() {
   return (
     <div className="flex h-screen flex-col bg-gradient-to-b from-slate-50 to-white">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-200/60 bg-white/80 px-6 py-3 backdrop-blur-md">
+      <div className="flex items-center justify-between border-b border-slate-200/60 bg-white/80 px-4 py-3 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-gray-100 shadow-lg shadow-blue-500/25 transition-all hover:scale-105"
-          >
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-slate-900">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-white shadow-lg shadow-blue-500/25">
             <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />
               <path d="M2 12l10 5 10-5" />
             </svg>
-          </Link>
-          <div>
-            <span className="bg-gradient-to-r font-bold from-blue-600 to-blue-300 bg-clip-text text-transparent">
-              {t("nav.logo")}
-            </span>
-            <p className="text-xs text-slate-400">Powered by Groq</p>
-          </div>
+          </span>
+          <span className="bg-gradient-to-r from-blue-600 to-blue-300 bg-clip-text text-transparent">
+            {t("nav.logo")}
+          </span>
+        </Link>
+        
         </div>
 
         {apiKey ? (
