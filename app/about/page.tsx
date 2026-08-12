@@ -230,6 +230,11 @@ export default function AboutPage() {
               </div>
             </div>
 
+            <div className="mt-6 rounded-xl border border-amber-200 bg-white/80 p-5">
+              <h4 className="text-sm font-semibold text-slate-900">{aboutT("api_paid_note_title")}</h4>
+              <p className="mt-2 text-sm leading-7 text-slate-600">{aboutT("api_paid_note")}</p>
+            </div>
+
             <p className="mt-5 text-sm leading-7 text-slate-500">
               {aboutT("api_note")}
             </p>
