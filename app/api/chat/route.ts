@@ -4,7 +4,7 @@ import ratelimit from "@/lib/ratelimit";
 export const runtime = "nodejs";
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1";
-const DEFAULT_MODEL = "qwen/qwen3.6-27b";
+const DEFAULT_MODEL = "qwen3.6-27b";
 const MAX_MESSAGES = 50;
 const MAX_MESSAGE_LENGTH = 8192;
 
